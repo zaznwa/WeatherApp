@@ -1,4 +1,4 @@
-package com.geeks.weatherapp.views.adapters
+package com.geeks.weatherapp.view.adapters
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
