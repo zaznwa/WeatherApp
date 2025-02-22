@@ -1,5 +1,6 @@
 package com.geeks.weatherapp.view.fragments
 
+import android.R
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,8 +14,10 @@ import androidx.fragment.app.viewModels
 import com.geeks.weatherapp.databinding.FragmentWeatherBinding
 import com.geeks.weatherapp.model.models.WeatherResponse
 import com.geeks.weatherapp.model.models.data.HourWeather
+import com.geeks.weatherapp.model.models.data.WeekWeather
 import com.geeks.weatherapp.viewmodel.WeatherViewModel
 import com.geeks.weatherapp.view.adapters.HourWeatherAdapter
+import com.geeks.weatherapp.view.adapters.WeekWeatherAdapter
 
 class WeatherFragment : Fragment() {
 
@@ -46,10 +49,10 @@ class WeatherFragment : Fragment() {
     private fun setupSpinner() {
         val adapter = ArrayAdapter(
             requireContext(),
-            android.R.layout.simple_spinner_item,
+            R.layout.simple_spinner_item,
             data
         ).apply {
-            setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
         }
         binding.citySpinner.adapter = adapter
 
@@ -89,7 +92,19 @@ class WeatherFragment : Fragment() {
             )
         } ?: emptyList()
 
+        val weekWeatherList = weatherResponse.forecast?.forecastday?.map { forecastDay ->
+            WeekWeather(
+                temperatureMax = forecastDay?.day?.maxtempC,
+                temperatureMin = forecastDay?.day?.mintempC,
+                iconUrl = forecastDay?.day?.condition?.icon,
+                day = forecastDay?.date.toString()
+            )
+        } ?: emptyList()
+
+
+
         binding.rvTodayForecast.adapter = HourWeatherAdapter(hourWeatherList)
+        binding.rvWeekWeather.adapter = WeekWeatherAdapter(weekWeatherList)
         binding.rvTodayForecast.adapter?.notifyDataSetChanged()
 
         binding.apply {
