@@ -9,6 +9,9 @@ interface WeatherApiService {
     suspend fun getCurrentWeather(
         @Query("key") apiKey: String,
         @Query("q") location: String,
+        @Query("days") days: Int = 7,  // Прогноз на 7 дней
+        @Query("aqi") aqi: String = "no",
+        @Query("alerts") alerts: String = "no"
     ): WeatherResponse
 
 }

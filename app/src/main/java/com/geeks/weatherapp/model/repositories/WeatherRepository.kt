@@ -1,4 +1,4 @@
-package com.geeks.weatherapp.repositories
+package com.geeks.weatherapp.model.repositories
 
 import com.geeks.weatherapp.model.core.RetrofitClient
 import com.geeks.weatherapp.model.models.WeatherResponse

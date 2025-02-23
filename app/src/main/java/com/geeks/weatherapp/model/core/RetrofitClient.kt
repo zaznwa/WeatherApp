@@ -1,6 +1,5 @@
 package com.geeks.weatherapp.model.core
 
-import com.geeks.weatherapp.model.models.WeatherResponse
 import com.geeks.weatherapp.model.service.WeatherApiService
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import kotlinx.serialization.ExperimentalSerializationApi
