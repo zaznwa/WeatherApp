@@ -1,6 +1,5 @@
 package com.geeks.weatherapp.view.fragments
 
-import android.R
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,6 +10,8 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.bumptech.glide.Glide
+import com.geeks.weatherapp.R
 import com.geeks.weatherapp.databinding.FragmentWeatherBinding
 import com.geeks.weatherapp.model.models.WeatherResponse
 import com.geeks.weatherapp.model.models.data.HourWeather
@@ -49,10 +50,10 @@ class WeatherFragment : Fragment() {
     private fun setupSpinner() {
         val adapter = ArrayAdapter(
             requireContext(),
-            R.layout.simple_spinner_item,
+            androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,
             data
         ).apply {
-            setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
+            setDropDownViewResource(androidx.appcompat.R.layout.support_simple_spinner_dropdown_item)
         }
         binding.citySpinner.adapter = adapter
 
@@ -115,6 +116,15 @@ class WeatherFragment : Fragment() {
             tvWindSpeed.text = "${weatherResponse.current?.windKph} км/ч"
             weatherType.text = weatherResponse.current?.condition?.text ?: ""
             tvTodayDate.text = weatherResponse.location?.localtime ?: ""
+
+            val isDay = weatherResponse.current?.isDay == 1
+            val bgResource = if (isDay) R.drawable.day_bg_weather else R.drawable.night_bg_weather
+            root.setBackgroundResource(bgResource)
+
+            val iconUrl = "https:${weatherResponse.current?.condition?.icon}"
+            Glide.with(root.context)
+                .load(iconUrl)
+                .into(ivWeather)
         }
     }
 }
